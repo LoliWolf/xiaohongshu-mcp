@@ -240,7 +240,8 @@ def generate_text_poster(title, content, style_name, footer_text=None, size=POST
         radius=20,
         fill=style["accent_color"],
     )
-    draw.text((margin_x + 20, 79), style_name.upper(), font=label_font, fill="#FFFFFF")
+    
+    draw.text((margin_x + 20, 79), "小红书", font=label_font, fill="#FFFFFF")
 
     title_lines = fit_lines(draw, title, title_font, content_width, max_lines=4, ellipsis=True)
     body_lines = fit_lines(draw, content, body_font, content_width, max_lines=18, ellipsis=True)
@@ -273,7 +274,7 @@ def generate_text_poster(title, content, style_name, footer_text=None, size=POST
         spacing=18,
     )
 
-    footer_y = height - bottom_margin
+    footer_y = height - bottom_margin - 48
     draw.line(
         [(margin_x, footer_y - 24), (width - margin_x, footer_y - 24)],
         fill=style["divider_color"],
