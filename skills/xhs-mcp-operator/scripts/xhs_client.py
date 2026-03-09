@@ -89,6 +89,15 @@ def read_text_arg(direct_value, file_path, field_name):
     return value.strip() if isinstance(value, str) else value
 
 
+def normalize_newlines(text):
+    if not isinstance(text, str):
+        return text
+    text = text.replace('\\n', '\n')
+    text = text.replace('\r\n', '\n')
+    text = text.replace('\r', '\n')
+    return text
+
+
 def require_pillow():
     try:
         from PIL import Image, ImageDraw, ImageFont
@@ -424,6 +433,9 @@ def main():
         title = read_text_arg(args.title, args.title_file, "title")
         content = read_text_arg(args.content, args.content_file, "content")
 
+        title = normalize_newlines(title)
+        content = normalize_newlines(content)
+
         if not title or not content:
             exit_with_error(
                 "Both title and content must be provided (directly or via file). "
@@ -464,6 +476,9 @@ def main():
     elif args.command == "publish_video":
         title = read_text_arg(args.title, args.title_file, "title")
         content = read_text_arg(args.content, args.content_file, "content")
+
+        title = normalize_newlines(title)
+        content = normalize_newlines(content)
 
         if not title or not content:
             exit_with_error("Both title and content must be provided (either directly or via file).")
